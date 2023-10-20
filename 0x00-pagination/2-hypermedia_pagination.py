@@ -60,7 +60,7 @@ class Server:
             next_page = page + 1
         else:
             next_page = None
-        
+
         total_pages = math.ceil(len(dataset) / page_size)
         return {
             'page_size': len(returned_dataset),
