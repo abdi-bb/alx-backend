@@ -47,8 +47,7 @@ class Server:
         dataset_length = len(indexed_dataset)
     
         # Verify that the requested index is within a valid range
-        if index is not None and (index < 0 or index >= dataset_length):
-            raise ValueError("Invalid index")
+        assert index is not None and (0 <= index < dataset_length)
     
         if index is None:
             index = 0
