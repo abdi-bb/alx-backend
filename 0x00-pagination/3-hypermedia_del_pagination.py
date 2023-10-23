@@ -62,7 +62,7 @@ class Server:
                 break
         return {
             'index': index,
-            'page_data': page_data,
+            'data': page_data,
             'page_size': page_size,
             'next_index': next_index,
         }
