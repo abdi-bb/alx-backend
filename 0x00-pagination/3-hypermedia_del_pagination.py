@@ -46,22 +46,23 @@ class Server:
         # Verify that the requested index is within a valid range
         assert index is not None and 0 <= index < len(indexed_dataset)
 
-        # Calculate the next index based on page_size
-        # next_index = min(index + page_size, len(indexed_dataset))
+        if index is None:
+            index = 0
+        next_index = None
+        page_data = []
+        page_data_count = 0
 
-        # Initialize the data and next_index
-        data = []
-        next_index = index
-
-        # Get the data page based on the index and page_size
-        while len(data) < page_size and next_index < len(indexed_dataset):
-            if next_index in indexed_dataset:
-                data.append(indexed_dataset[next_index])
-            next_index += 1
-
+        for idx, item in indexed_dataset.items():
+            if idx >= index and page_data_count < page_size:
+                page_data.append(item)
+                page_data_count += 1
+                continue
+            if page_data_count == page_size:
+                next_index = idx
+                break
         return {
             'index': index,
-            'data': data,
+            'page_data': page_data,
             'page_size': page_size,
             'next_index': next_index,
         }
