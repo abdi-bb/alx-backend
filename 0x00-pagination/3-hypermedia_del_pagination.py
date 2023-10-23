@@ -45,17 +45,17 @@ class Server:
         '''
         indexed_dataset = self.indexed_dataset()
         dataset_length = len(indexed_dataset)
-    
+
         # Verify that the requested index is within a valid range
         assert index is not None and (0 <= index < dataset_length)
-    
+
         if index is None:
             index = 0
-    
+
         next_index = None
         page_data = []
         page_data_count = 0
-    
+
         for idx in range(index, dataset_length):
             item = indexed_dataset.get(idx)
             if item is not None:
@@ -64,7 +64,7 @@ class Server:
                 if page_data_count == page_size:
                     next_index = idx + 1
                     break
-    
+
         return {
             'index': index,
             'data': page_data,
