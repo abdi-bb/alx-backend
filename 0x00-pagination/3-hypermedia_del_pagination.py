@@ -44,19 +44,20 @@ class Server:
         indexed_dataset = self.indexed_dataset()
 
         # Verify that the requested index is within a valid range
-        assert index is None or 0 <= index < len(
-            indexed_dataset), "Index is out of range"
-
-        # If index is None, set it to 0
-        if index is None:
-            index = 0
+        assert index is not None and 0 <= index < len(indexed_dataset)
 
         # Calculate the next index based on page_size
-        next_index = min(index + page_size, len(indexed_dataset))
+        # next_index = min(index + page_size, len(indexed_dataset))
+
+        # Initialize the data and next_index
+        data = []
+        next_index = index
 
         # Get the data page based on the index and page_size
-        data = [indexed_dataset[i]
-                for i in range(index, next_index) if i in indexed_dataset]
+        while len(data) < page_size and next_index < len(indexed_dataset):
+            if next_index in indexed_dataset:
+                data.append(indexed_dataset[next_index])
+            next_index += 1
 
         return {
             'index': index,
