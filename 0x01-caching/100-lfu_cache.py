@@ -32,7 +32,7 @@ class LFUCache(BaseCaching):
                 lfu_keys = [element for element, frequency in counter.items(
                 ) if frequency == min_frequency]
                 if len(lfu_keys) > 1:
-                    # If there's more than one LFU key, use LRU to discard the least recently used one
+                    # If there's more than one LFU key, use LRU
                     lru_key = self.key_frequency.pop(0)
                     # self.key_frequency.remove(lru_key)
                     del self.cache_data[lru_key]
