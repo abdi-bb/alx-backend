@@ -29,7 +29,8 @@ class LFUCache(BaseCaching):
                 counter = Counter(self.key_frequency)
                 min_frequency = min(counter.values())
 
-                lfu_keys = [element for element, frequency in counter.items() if frequency == min_frequency]
+                lfu_keys = [element for element, frequency in counter.items(
+                ) if frequency == min_frequency]
                 if len(lfu_keys) > 1:
                     # If there's more than one LFU key, use LRU to discard the least recently used one
                     lru_key = self.key_frequency.pop(0)
