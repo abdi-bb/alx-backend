@@ -17,6 +17,14 @@ def get_locale():
     return 'en'
 
 
+class Config():
+    '''Class Config'''
+    LANGUAGES = ['en', 'fr']
+
+
+app.config.from_object(Config)
+
+
 @babel.timezoneselector
 def get_timezone():
     '''Default tz'''
@@ -27,14 +35,6 @@ def get_timezone():
 def welcome():
     '''Flask App returning html page'''
     return render_template('1-index.html')
-
-
-class Config():
-    '''Class Config'''
-    LANGUAGES = ['en', 'fr']
-
-
-app.config.from_object(Config)
 
 
 if __name__ == '__main__':
