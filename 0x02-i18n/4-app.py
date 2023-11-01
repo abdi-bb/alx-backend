@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-Module: '3-app'
+Module: '4-app'
 Basic Flask App
 '''
 
@@ -34,6 +34,10 @@ def welcome():
 @babel.localeselector
 def get_locale() -> str:
     '''Determines best match from supported langs'''
+    requested_locale = request.args.get('locale')
+    if requested_locale and requested_locale in Config.LANGUAGES:
+        # If the requested locale is supported, use it
+        return requested_locale
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
