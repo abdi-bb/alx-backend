@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 '''
-Module: '4-app'
+Module: '5-app'
 Basic Flask App
 '''
 
 from typing import Dict, Union
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel, _, gettext
 
 app = Flask(__name__)
@@ -20,6 +20,30 @@ class Config():
 
 
 app.config.from_object(Config)
+
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
+
+def get_user() -> Union[Dict, None]:
+    """Retrieves a user based on a user id.
+    """
+    login_id = request.args.get('login_as')
+    if login_id:
+        return users.get(int(login_id))
+    return None
+
+
+@app.before_request
+def before_request() -> None:
+    """Performs some routines before each request's resolution.
+    """
+
+    g.user = get_user()
 
 
 @app.route('/')
