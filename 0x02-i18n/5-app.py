@@ -49,11 +49,7 @@ def before_request() -> None:
 @app.route('/')
 def welcome():
     '''Flask App returning html page'''
-    home_title = 'Welcome to Holberton'
-    home_header = 'Hello world!'
-    return render_template('4-index.html',
-                           home_title=home_title,
-                           home_header=home_header)
+    return render_template('5-index.html')
 
 
 @babel.localeselector
